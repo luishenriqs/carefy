@@ -3,8 +3,8 @@ import IPatientsRepository from '@modules/patients/repositories/IPatientsReposit
 import ICreatePatientDTO from '@modules/patients/dtos/ICreatePatientDTO';
 import Patient from '../../infra/typeorm/entities/Patient';
 
-/* Patient Repository Fake criado para testes. Substitui database;  */
-class PatientsRepository implements IPatientsRepository {
+/* Fake Patients Repository criado para testes. Substitui database;  */
+class FakePatientsRepository implements IPatientsRepository {
   // Array simulando database;
   private patients: Patient[] = [];
   
@@ -35,4 +35,4 @@ class PatientsRepository implements IPatientsRepository {
   /* ************************************************************************ */
 }
 
-export default PatientsRepository;
+export default FakePatientsRepository;

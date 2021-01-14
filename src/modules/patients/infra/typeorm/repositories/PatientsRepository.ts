@@ -26,13 +26,37 @@ class PatientsRepository implements IPatientsRepository {
   }
   /* ************************************************************************ */
 
+  /* ******************************[SAVE]************************************ */
+  public async save(patient: Patient): Promise<Patient> {
+    return this.ormRepository.save(patient);
+  }
+  /* ************************************************************************ */
+
   /* **************************[FIND BY NAME]******************************** */
   public async findByName(name: string): Promise<Patient | undefined> {
-    const findPatient = await this.ormRepository.findOne({
+    const foundPatient = await this.ormRepository.findOne({
       where: { name },
     });
   
-    return findPatient;
+    return foundPatient;
+  }
+  /* ************************************************************************ */
+
+  /* ***************************[FIND BY ID]********************************* */
+  public async findById(id: string): Promise<Patient | undefined> {
+    const foundPatient = await this.ormRepository.findOne({
+      where: { id },
+    });
+  
+    return foundPatient;
+  }
+  /* ************************************************************************ */
+
+  /* ****************************[FIND ALL]********************************** */
+  public async findAll(): Promise<Patient | undefined> {
+    const allPatients = await this.ormRepository.find();
+  
+    return allPatients;
   }
   /* ************************************************************************ */
 }
