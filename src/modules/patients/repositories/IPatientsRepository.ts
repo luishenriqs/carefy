@@ -7,4 +7,5 @@ export default interface IPatientsRepository {
   findByName(name: string): Promise<Patient | undefined>;
   findById(id: string): Promise<Patient | undefined>;
   findAll(): Promise<Patient | undefined>;
+  delete(id: string): Promise<void>;
 }

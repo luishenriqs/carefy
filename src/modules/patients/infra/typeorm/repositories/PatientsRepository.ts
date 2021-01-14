@@ -59,6 +59,17 @@ class PatientsRepository implements IPatientsRepository {
     return allPatients;
   }
   /* ************************************************************************ */
+
+  /* *****************************[DELETE]*********************************** */
+  public async delete(id: string): Promise<void> {
+    const removedPatient = await this.ormRepository.findOne({
+      where: { id },
+    });
+    await this.ormRepository.remove(removedPatient);
+  
+    return;
+  }
+  /* ************************************************************************ */
 }
 
 export default PatientsRepository;

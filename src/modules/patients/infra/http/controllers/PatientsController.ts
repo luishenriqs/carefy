@@ -4,6 +4,7 @@ import CreatePatientService from '@modules/patients/services/CreatePatientServic
 import ShowPatientService from '@modules/patients/services/ShowPatientService';
 import IndexPatientService from '@modules/patients/services/IndexPatientService';
 import EditPatientService from '@modules/patients/services/EditPatientService';
+import DeletePatientService from '@modules/patients/services/DeletePatientService';
 
 export default class PatientsController {
 
@@ -60,6 +61,18 @@ export default class PatientsController {
       secondaryPhone,
     });
     return response.json(patient);
+  }
+  /* ************************************************************************ */
+
+  /*  ************************[DELETE PATIENT]******************************* */
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.body;
+
+    /* O 'container.resolve' injeta uma instância da classe do service
+    "DeletePatientService" dentro da rota;  */
+    const deletePatient = container.resolve(DeletePatientService);
+    await deletePatient.execute(id);
+    return response.status(200).json();
   }
   /* ************************************************************************ */
 }

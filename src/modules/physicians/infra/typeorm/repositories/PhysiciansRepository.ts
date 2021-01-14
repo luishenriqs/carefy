@@ -24,10 +24,26 @@ class PhysiciansRepository implements IPhysiciansRepository {
   }
   /* ************************************************************************ */
 
+  /* ******************************[SAVE]************************************ */
+  public async save(physician: Physician): Promise<Physician> {
+    return this.ormRepository.save(physician);
+  }
+  /* ************************************************************************ */
+
   /* **************************[FIND BY NAME]******************************** */
   public async findByName(name: string): Promise<Physician | undefined> {
     const findPhysician = await this.ormRepository.findOne({
       where: { name },
+    });
+
+    return findPhysician;
+  }
+  /* ************************************************************************ */
+
+  /* ***************************[FIND BY ID]********************************* */
+  public async findById(id: string): Promise<Physician | undefined> {
+    const findPhysician = await this.ormRepository.findOne({
+      where: { id },
     });
 
     return findPhysician;
@@ -41,6 +57,25 @@ class PhysiciansRepository implements IPhysiciansRepository {
     });
 
     return findPhysician;
+  }
+  /* ************************************************************************ */
+
+  /* ****************************[FIND ALL]********************************** */
+  public async findAll(): Promise<Physician | undefined> {
+    const allPhysicians = await this.ormRepository.find();
+  
+    return allPhysicians;
+  }
+  /* ************************************************************************ */
+
+  /* *****************************[DELETE]*********************************** */
+  public async delete(id: string): Promise<void> {
+    const removedPhysician = await this.ormRepository.findOne({
+      where: { id },
+    });
+    await this.ormRepository.remove(removedPhysician);
+  
+    return;
   }
   /* ************************************************************************ */
 }
