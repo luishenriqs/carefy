@@ -3,29 +3,36 @@ import IPatientsRepository from '@modules/patients/repositories/IPatientsReposit
 import ICreatePatientDTO from '@modules/patients/dtos/ICreatePatientDTO';
 import Patient from '../../infra/typeorm/entities/Patient';
 
-/* Patient Repository fake criado para testes. Substitui database;  */
+/* Patient Repository Fake criado para testes. Substitui database;  */
 class PatientsRepository implements IPatientsRepository {
+  // Array simulando database;
   private patients: Patient[] = [];
-
-  // Procura no array de appointments por um que tenha mesmo date;
-  public async findByDate(date: Date): Promise<Patient | undefined> {
-
-  }
-
+  
+  /* *****************************[CREATE]*********************************** */
   public async create({
     name,
     preferredPhone,
     secondaryPhone,
   }: ICreatePatientDTO): Promise<Patient> {
     const patient = new Patient();
-
+    
     // Insere no primeiro parâmetro (patient) as propriedades passadas no objeto;
     Object.assign(patient, { id: uuidv4(), name, preferredPhone, secondaryPhone });
-
+    
     this.patients.push(patient);
+    
+    return patient;
+  }
+  /* ************************************************************************ */
+
+  /* **************************[FIND BY NAME]******************************** */
+  // Procura no array "patients" por um elemento com mesmo name;
+  public async findByName(name: string): Promise<Patient | undefined> {
+    const patient = await this.patients.find(patient => patient.name === name);
 
     return patient;
   }
+  /* ************************************************************************ */
 }
 
 export default PatientsRepository;

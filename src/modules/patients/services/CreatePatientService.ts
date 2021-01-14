@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import Patient from '@modules/patients/infra/typeorm/entities/Patients';
+import Patient from '@modules/patients/infra/typeorm/entities/Patient';
 import IPatientsRepository from '../repositories/IPatientsRepository';
 
 interface IRequest {

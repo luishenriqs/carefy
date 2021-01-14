@@ -9,15 +9,8 @@ class PatientsRepository implements IPatientsRepository {
   constructor() {
     this.ormRepository = getRepository(Patient);
   }
-
-  public async findByDate(date: Date): Promise<Patient | undefined> {
-    const findAppointment = await this.ormRepository.findOne({
-      where: { date },
-    });
-
-    return findAppointment;
-  }
-
+  
+  /* *****************************[CREATE]*********************************** */
   public async create({
     name,
     preferredPhone,
@@ -31,6 +24,17 @@ class PatientsRepository implements IPatientsRepository {
     await this.ormRepository.save(patient);
     return patient;
   }
+  /* ************************************************************************ */
+
+  /* **************************[FIND BY NAME]******************************** */
+  public async findByName(name: string): Promise<Patient | undefined> {
+    const findPatient = await this.ormRepository.findOne({
+      where: { name },
+    });
+  
+    return findPatient;
+  }
+  /* ************************************************************************ */
 }
 
 export default PatientsRepository;

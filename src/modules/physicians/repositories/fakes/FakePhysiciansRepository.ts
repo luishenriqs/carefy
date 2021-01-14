@@ -6,12 +6,8 @@ import Physician from '../../infra/typeorm/entities/Physician';
 /* Patient Repository fake criado para testes. Substitui database;  */
 class PhysiciansRepository implements IPhysiciansRepository {
   private physicians: Physician[] = [];
-
-  // Procura no array de appointments por um que tenha mesmo date;
-  public async findByDate(date: Date): Promise<Physician | undefined> {
-    return Physician;
-  }
-
+  
+  /* ****************************[CREATE]************************************ */
   public async create({
     name,
     medicalSpecialty,
@@ -25,6 +21,29 @@ class PhysiciansRepository implements IPhysiciansRepository {
 
     return physician;
   }
+  /* ************************************************************************ */
+
+  /* **************************[FIND BY NAME]******************************** */
+  // Procura no array de appointments por um que tenha mesmo date;
+  public async findByName(name: string): Promise<Physician | undefined> {
+    const physician = await this.physicians.find(
+      physician => physician.name === name
+    );
+    return physician;
+  }
+  /* ************************************************************************ */
+
+  /* *********************[FIND BY SPECIALTY]******************************** */
+  // Procura no array de appointments por um que tenha mesmo date;
+  public async findBySpecialty(
+    specialty: string
+    ): Promise<Physician | undefined> {
+      const physician = await this.physicians.find(
+        physician => physician.medicalSpecialty === specialty
+      );
+    return physician;
+  }
+  /* ************************************************************************ */
 }
 
 export default PhysiciansRepository;

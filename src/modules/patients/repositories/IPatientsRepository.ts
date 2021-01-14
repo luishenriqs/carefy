@@ -3,5 +3,5 @@ import ICreatePatientDTO from '../dtos/ICreatePatientDTO';
 
 export default interface IPatientsRepository {
   create(data: ICreatePatientDTO): Promise<Patient>;
-  findByDate(date: Date): Promise<Patient | undefined>;
+  findByName(name: string): Promise<Patient | undefined>;
 }

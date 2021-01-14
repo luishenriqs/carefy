@@ -3,5 +3,6 @@ import ICreatePhysicianDTO from '../dtos/ICreatePhysicianDTO';
 
 export default interface IPhysiciansRepository {
   create(data: ICreatePhysicianDTO): Promise<Physician>;
-  findByDate(date: Date): Promise<Physician | undefined>;
+  findByName(name: string): Promise<Physician | undefined>;
+  findBySpecialty(specialty: string): Promise<Physician | undefined>;
 }
