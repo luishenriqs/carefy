@@ -1,11 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-import Patient from '@modules/patients/infra/typeorm/entities/Patient';
 import IPatientsRepository from '../repositories/IPatientsRepository';
 
-interface IRequest {
-  id: string;
-}
+
 /* Esse service é injetável.
 Ele recebe a injeção de dependência do repositório 'PatientsRepository'; */
 @injectable()
@@ -15,7 +12,10 @@ class DeletePatientService {
     private patientsRepository: IPatientsRepository,
   ) {}
 
-  public async execute(id: IRequest): Promise<Patient> {
+  public async execute(id: string): Promise<void> {
+    if (!id) {
+      throw new AppError('Patient not found');
+    }
     await this.patientsRepository.delete(id);
     return;
   }

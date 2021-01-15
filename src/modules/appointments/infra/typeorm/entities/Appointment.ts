@@ -17,8 +17,17 @@ class Appointment {
   @Column()
   patient_id: string;
 
-  @Column('timestamp with time zone')
-  date: Date;
+  @Column()
+  day: string;
+  
+  @Column()
+  month: string;
+  
+  @Column()
+  start: string;
+  
+  @Column()
+  end: string;
 
   @CreateDateColumn()
   created_at: Date;

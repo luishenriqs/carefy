@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 import Physician from '@modules/physicians/infra/typeorm/entities/Physician';
 import IPhysiciansRepository from '../repositories/IPhysiciansRepository';
 
@@ -13,9 +14,13 @@ class IndexPhysicianService {
 
   public async execute(): Promise<Physician> {
 
-    const physician = await this.physiciansRepository.findAll();
+    const physicians = await this.physiciansRepository.findAll();
 
-    return physician;
+    if (!physicians) {
+      throw new AppError('There was an error, please try again.');      
+    }
+
+    return physicians;
   }
 }
 

@@ -1,10 +1,9 @@
 import { inject, injectable } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 import Physician from '@modules/physicians/infra/typeorm/entities/Physician';
 import IPhysiciansRepository from '../repositories/IPhysiciansRepository';
 
-interface IRequest {
-  name: string;
-}
+
 /* Esse service é injetável.
 Ele recebe a injeção de dependência do repositório 'PhysicianRepository'; */
 @injectable()
@@ -14,9 +13,13 @@ class ShowPhysicianService {
     private physiciansRepository: IPhysiciansRepository,
   ) {}
 
-  public async execute(name: IRequest): Promise<Physician> {
+  public async execute(name: string): Promise<Physician> {
 
     const physician = await this.physiciansRepository.findByName(name);
+
+    if (!physician) {
+      throw new AppError('There was an error, please try again.');      
+    }
 
     return physician;
   }

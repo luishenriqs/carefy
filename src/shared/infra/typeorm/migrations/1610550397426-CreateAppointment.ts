@@ -23,8 +23,20 @@ export class CreateAppointment1610550397426
                         type: 'uuid',
                     },
                     {
-                        name: 'date',
-                        type: 'timestamp with time zone',
+                        name: 'day',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'month',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'start',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'end',
+                        type: 'varchar',
                     },
                     {
                         name: 'created_at',

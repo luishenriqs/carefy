@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 import Patient from '@modules/patients/infra/typeorm/entities/Patient';
 import IPatientsRepository from '../repositories/IPatientsRepository';
 
@@ -21,6 +22,10 @@ class CreatePatientService {
     preferredPhone,
     secondaryPhone,
   }: IRequest): Promise<Patient> {
+
+    if (!name || !preferredPhone || !secondaryPhone) {
+      throw new AppError('There was an error, please try again.');   
+    }
 
     const patient = await this.patientsRepository.create({
       name,
