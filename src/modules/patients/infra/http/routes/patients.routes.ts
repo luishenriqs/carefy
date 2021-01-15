@@ -9,4 +9,5 @@ patientsRouter.get('/show', patientsController.show);
 patientsRouter.get('/index', patientsController.index);
 patientsRouter.patch('/edit', patientsController.edit);
 patientsRouter.delete('/delete', patientsController.delete);
+patientsRouter.get('/list', patientsController.list);
 export default patientsRouter;

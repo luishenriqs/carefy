@@ -9,4 +9,5 @@ physiciansRouter.get('/show', physiciansController.show);
 physiciansRouter.get('/index', physiciansController.index);
 physiciansRouter.patch('/edit', physiciansController.edit);
 physiciansRouter.delete('/delete', physiciansController.delete);
+physiciansRouter.get('/list', physiciansController.list);
 export default physiciansRouter;

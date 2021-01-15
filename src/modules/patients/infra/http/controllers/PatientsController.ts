@@ -5,6 +5,7 @@ import ShowPatientService from '@modules/patients/services/ShowPatientService';
 import IndexPatientService from '@modules/patients/services/IndexPatientService';
 import EditPatientService from '@modules/patients/services/EditPatientService';
 import DeletePatientService from '@modules/patients/services/DeletePatientService';
+import ListAppointmentsByPatientService from '@modules/patients/services/ListAppointmentsByPatientService';
 
 export default class PatientsController {
 
@@ -73,6 +74,18 @@ export default class PatientsController {
     const deletePatient = container.resolve(DeletePatientService);
     await deletePatient.execute(id);
     return response.status(200).json();
+  }
+  /* ************************************************************************ */
+
+  /* **************************[LIST PATIENTS]******************************* */
+  public async list(request: Request, response: Response): Promise<Response> {
+    const { name } = request.body;
+
+    /* O 'container.resolve' injeta uma instância da classe do service
+    "ListAppointmentsByPatientService" dentro da rota;  */
+    const listAppointment = container.resolve(ListAppointmentsByPatientService);
+    const appointment = await listAppointment.execute(name);
+    return response.json(appointment);
   }
   /* ************************************************************************ */
 }
