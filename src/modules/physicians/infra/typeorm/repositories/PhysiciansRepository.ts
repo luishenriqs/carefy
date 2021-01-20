@@ -31,9 +31,19 @@ class PhysiciansRepository implements IPhysiciansRepository {
   /* ************************************************************************ */
 
   /* **************************[FIND BY NAME]******************************** */
-  public async findByName(name: string): Promise<Physician | undefined> {
-    const findPhysician = await this.ormRepository.findOne({
+  public async findByName(name: string): Promise<Physician[] | undefined> {
+    const findPhysician = await this.ormRepository.find({
       where: { name },
+    });
+
+    return findPhysician;
+  }
+  /* ************************************************************************ */
+  
+  /* **********************[FIND BY SPECIALTY]******************************* */
+  public async findBySpecialty(medicalSpecialty: string): Promise<Physician[] | undefined> {
+    const findPhysician = await this.ormRepository.find({
+      where: { medicalSpecialty },
     });
 
     return findPhysician;
@@ -50,18 +60,8 @@ class PhysiciansRepository implements IPhysiciansRepository {
   }
   /* ************************************************************************ */
 
-  /* **********************[FIND BY SPECIALTY]******************************* */
-  public async findBySpecialty(specialty: string): Promise<Physician | undefined> {
-    const findPhysician = await this.ormRepository.findOne({
-      where: { specialty },
-    });
-
-    return findPhysician;
-  }
-  /* ************************************************************************ */
-
   /* ****************************[FIND ALL]********************************** */
-  public async findAll(): Promise<Physician | undefined> {
+  public async findAll(): Promise<Physician[] | undefined> {
     const allPhysicians = await this.ormRepository.find();
   
     return allPhysicians;

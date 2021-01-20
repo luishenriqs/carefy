@@ -39,7 +39,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
   /* ************************************************************************ */
 
   /* ************************[FIND BY PATIENT]***************************** */
-  public async findByPatient_Id(patient_id: string): Promise<Appointment[] | undefined> {
+  public async findByPatient_id(patient_id: string): Promise<Appointment[] | undefined> {
     const foundAppointment = await this.ormRepository.find({
       where: { patient_id },
     });
@@ -49,7 +49,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
   /* ********************************************************************** */
 
   /* **********************[FIND BY PHYSICIAN]***************************** */
-  public async findByPhysician_Id(physician_id: string): Promise<Appointment[] | undefined> {
+  public async findByPhysician_id(physician_id: string): Promise<Appointment[] | undefined> {
     const foundAppointment = await this.ormRepository.find({
       where: { physician_id },
     });

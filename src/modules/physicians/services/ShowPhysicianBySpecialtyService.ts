@@ -3,25 +3,25 @@ import AppError from '@shared/errors/AppError';
 import Physician from '@modules/physicians/infra/typeorm/entities/Physician';
 import IPhysiciansRepository from '../repositories/IPhysiciansRepository';
 
+
 /* Esse service é injetável.
 Ele recebe a injeção de dependência do repositório 'PhysicianRepository'; */
 @injectable()
-class IndexPhysicianService {
+class ShowPhysicianByNameService {
   constructor(
     @inject('PhysiciansRepository')
     private physiciansRepository: IPhysiciansRepository,
   ) {}
 
-  public async execute(): Promise<Physician[]> {
+  public async execute(medicalSpecialty: string): Promise<Physician[]> {
 
-    const physicians = await this.physiciansRepository.findAll();
+    const physician = await this.physiciansRepository.findBySpecialty(medicalSpecialty);
 
-    if (!physicians) {
+    if (!physician) {
       throw new AppError('There was an error, please try again.');      
     }
-
-    return physicians;
+    return physician;
   }
 }
 
-export default IndexPhysicianService;
+export default ShowPhysicianByNameService;

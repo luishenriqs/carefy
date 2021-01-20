@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService';
-import ShowAppointmentService from '@modules/appointments/services/ShowAppointmentService';
+import ShowAppointmentByPhysicianService from '@modules/appointments/services/ShowAppointmentByPhysicianService';
+import ShowAppointmentByPatientService from '@modules/appointments/services/ShowAppointmentByPatientService';
 import IndexAppointmentService from '@modules/appointments/services/IndexAppointmentService';
 import EditAppointmentService from '@modules/appointments/services/EditByPatientIdService';
 import DeleteAppointmentService from '@modules/appointments/services/DeleteAppointmentService';
@@ -27,14 +28,22 @@ export default class AppointmentsController {
   }
   /* ************************************************************************ */
 
-  /*  ***********************[SHOW APPOINTMENTS]***************************** */
-  public async show(request: Request, response: Response): Promise<Response> {
-    const { patient_id } = request.body;
+  /*  *****************[SHOW APPOINTMENTS BY PHYSICIAN]********************** */
+  public async showByPhysician(request: Request, response: Response): Promise<Response> {
+    const { physician } = request.query;
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "ShowAppointmentService" dentro da rota;  */
-    const showAppointments = container.resolve(ShowAppointmentService);
-    const appointments = await showAppointments.execute(patient_id);
+    const showAppointments = container.resolve(ShowAppointmentByPhysicianService);
+    const appointments = await showAppointments.execute(physician);
+    return response.json(appointments);
+  }
+  /* ************************************************************************ */
+
+  /*  ******************[SHOW APPOINTMENTS BY PATIENT]*********************** */
+  public async showByPatient(request: Request, response: Response): Promise<Response> {
+    const { patient } = request.query;
+
+    const showAppointments = container.resolve(ShowAppointmentByPatientService);
+    const appointments = await showAppointments.execute(patient);
     return response.json(appointments);
   }
   /* ************************************************************************ */

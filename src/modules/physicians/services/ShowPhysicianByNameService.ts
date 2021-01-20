@@ -7,22 +7,21 @@ import IPhysiciansRepository from '../repositories/IPhysiciansRepository';
 /* Esse service é injetável.
 Ele recebe a injeção de dependência do repositório 'PhysicianRepository'; */
 @injectable()
-class ShowPhysicianService {
+class ShowPhysicianByNameService {
   constructor(
     @inject('PhysiciansRepository')
     private physiciansRepository: IPhysiciansRepository,
   ) {}
 
-  public async execute(name: string): Promise<Physician> {
+  public async execute(name: string): Promise<Physician[]> {
 
     const physician = await this.physiciansRepository.findByName(name);
 
     if (!physician) {
       throw new AppError('There was an error, please try again.');      
     }
-
     return physician;
   }
 }
 
-export default ShowPhysicianService;
+export default ShowPhysicianByNameService;

@@ -1,20 +1,23 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreatePhysicianService from '@modules/physicians/services/CreatePhysicianService';
-import ShowPhysicianService from '@modules/physicians/services/ShowPhysicianService';
+import ShowPhysicianByNameService from '@modules/physicians/services/ShowPhysicianByNameService';
+import ShowPhysicianBySpecialtyService from '@modules/physicians/services/ShowPhysicianBySpecialtyService';
 import IndexPhysicianService from '@modules/physicians/services/IndexPhysicianService';
 import EditPhysicianService from '@modules/physicians/services/EditPhysicianService';
 import DeletePhysicianService from '@modules/physicians/services/DeletePhysicianService';
 import ListAppointmensByPhysicianService from '@modules/physicians/services/ListAppointmentsByPhysicianService';
 
+/* O 'container.resolve' injeta uma instância da classe do service
+chamado dentro da rota;  */
 export default class PhysiciansController {
 
   /* ***********************[CREATE PHYSICIAN]******************************* */
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, medicalSpecialty } = request.body;
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "CreatePhysicianService" dentro da rota;  */
+    console.log(name, medicalSpecialty)
+
     const createPhysician = container.resolve(CreatePhysicianService);
     const physician = await createPhysician.execute({
       name,
@@ -24,25 +27,31 @@ export default class PhysiciansController {
   }
   /* ************************************************************************ */
 
-  /* *************************[SHOW PHYSICIAN]******************************* */
-  public async show(request: Request, response: Response): Promise<Response> {
-    const { name } = request.body;
+  /* ************************[INDEX PHYSICIAN]******************************* */
+  public async index(request: Request, response: Response): Promise<Response> {
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "ShowPhysicianService" dentro da rota;  */
-    const showPhysician = container.resolve(ShowPhysicianService);
-    const physician = await showPhysician.execute(name);
+    const indexPhysician = container.resolve(IndexPhysicianService);
+    const physician = await indexPhysician.execute();
     return response.json(physician);
   }
   /* ************************************************************************ */
 
-  /* ************************[INDEX PHYSICIAN]******************************* */
-  public async index(request: Request, response: Response): Promise<Response> {
+  /* *********************[SHOW PHYSICIAN BY NAME]*************************** */
+  public async showByName(request: Request, response: Response): Promise<Response> {
+    const { name } = request.query;
+    const showPhysician = container.resolve(ShowPhysicianByNameService);
+    const physician = await showPhysician.execute(name);
+    
+    return response.json(physician);
+  }
+  /* ************************************************************************ */
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "IndexPhysicianService" dentro da rota;  */
-    const indexPhysician = container.resolve(IndexPhysicianService);
-    const physician = await indexPhysician.execute();
+  /* *******************[SHOW PHYSICIAN BY SPECIALTY]************************ */
+  public async showBySpecialty(request: Request, response: Response): Promise<Response> {
+    const { medicalSpecialty } = request.query;
+    const showPhysician = container.resolve(ShowPhysicianBySpecialtyService);
+    const physician = await showPhysician.execute(medicalSpecialty);
+    
     return response.json(physician);
   }
   /* ************************************************************************ */
