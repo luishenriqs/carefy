@@ -13,9 +13,6 @@ class Patient {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToMany(type => Appointment, patient => Patient)
-  appointments: Appointment;
-
   @Column()
   name: string;
 

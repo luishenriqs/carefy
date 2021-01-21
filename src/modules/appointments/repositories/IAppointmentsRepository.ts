@@ -4,9 +4,9 @@ import ICreateAppointmentDTO from '../dtos/ICreateAppointmentDTO';
 export default interface IAppointmentsRepository {
   create(data: ICreateAppointmentDTO): Promise<Appointment>;
   save(appointment: Appointment): Promise<Appointment | undefined>;
-  findByPatient_id(patient_id: string): Promise<Appointment[] | undefined>;
-  findByPhysician_id(physician_id: string): Promise<Appointment[] | undefined>;
-  findByDay(day: string): Promise<Appointment | undefined>;
+  findByPatient(patient: string): Promise<Appointment[] | undefined>;
+  findByPhysician(physician: string): Promise<Appointment[] | undefined>;
+  findByDay(day: string): Promise<Appointment[] | undefined>;
   findAll(): Promise<Appointment[] | undefined>;
   delete(id: string): Promise<void>;
 }

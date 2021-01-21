@@ -6,7 +6,7 @@ export default interface IPhysiciansRepository {
   save(physician: Physician): Promise<Physician | undefined>;
   findByName(name: string): Promise<Physician[] | undefined>;
   findBySpecialty(specialty: string): Promise<Physician[] | undefined>;
-  findById(id: string): Promise<Physician | undefined>;
+  findById(id: string): Promise<Physician[] | undefined>;
   findAll(): Promise<Physician[] | undefined>;
   delete(id:string): Promise<void>;
 }

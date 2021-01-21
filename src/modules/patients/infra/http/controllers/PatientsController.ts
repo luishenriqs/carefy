@@ -19,8 +19,6 @@ export default class PatientsController {
       secondaryPhone
     } = request.body;
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "CreatePatientService" dentro da rota;  */
     const createPatient = container.resolve(CreatePatientService);
     const patient = await createPatient.execute({
       name,
@@ -35,10 +33,8 @@ export default class PatientsController {
 
   /*  *************************[SHOW PATIENT]******************************** */
   public async show(request: Request, response: Response): Promise<Response> {
-    const { name } = request.body;
+    const { name } = request.query;
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "ShowPatientService" dentro da rota;  */
     const showPatient = container.resolve(ShowPatientService);
     const patients = await showPatient.execute(name);
     return response.json(patients);
@@ -48,8 +44,6 @@ export default class PatientsController {
   /*  ************************[INDEX PATIENT]******************************** */
   public async index(request: Request, response: Response): Promise<Response> {
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "ShowPatientService" dentro da rota;  */
     const indexPatient = container.resolve(IndexPatientService);
     const patients = await indexPatient.execute();
     return response.json(patients);
@@ -60,8 +54,6 @@ export default class PatientsController {
   public async edit(request: Request, response: Response): Promise<Response> {
     const { id, name, preferredPhone, secondaryPhone } = request.body;
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "ShowPatientService" dentro da rota;  */
     const editPatient = container.resolve(EditPatientService);
     const patient = await editPatient.execute({
       id,
@@ -77,20 +69,16 @@ export default class PatientsController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.body;
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "DeletePatientService" dentro da rota;  */
     const deletePatient = container.resolve(DeletePatientService);
     await deletePatient.execute(id);
     return response.status(200).json();
   }
   /* ************************************************************************ */
 
-  /* **************************[LIST PATIENTS]******************************* */
+  /* ********************[LIST PATIENT APPOINTMENTS]************************* */
   public async list(request: Request, response: Response): Promise<Response> {
     const { name } = request.body;
 
-    /* O 'container.resolve' injeta uma instância da classe do service
-    "ListAppointmentsByPatientService" dentro da rota;  */
     const listAppointment = container.resolve(ListAppointmentsByPatientService);
     const appointment = await listAppointment.execute(name);
     return response.json(appointment);

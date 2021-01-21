@@ -6,7 +6,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity('appointments')
@@ -14,17 +15,19 @@ class Appointment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(type => Physician, appointments => Appointment, {eager:true})
-  physician: Physician;
+  @ManyToMany(type => Physician)
+  @JoinTable()
+  physicians: Physician;
 
-  @ManyToOne(type => Patient, appointments => Appointment, {eager:true})
-  Patient: Patient;
+  @ManyToMany(type => Patient)
+  @JoinTable()
+  patients: Patient;
 
-  // @Column()
-  // physician_id: string;
+  @Column()
+  physician: string;
 
-  // @Column()
-  // patient_id: string;
+  @Column()
+  patient: string;
 
   @Column()
   day: string;

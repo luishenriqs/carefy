@@ -3,9 +3,6 @@ import AppError from '@shared/errors/AppError';
 import Physician from '@modules/physicians/infra/typeorm/entities/Physician';
 import IPhysiciansRepository from '../repositories/IPhysiciansRepository';
 
-
-/* Esse service é injetável.
-Ele recebe a injeção de dependência do repositório 'PhysicianRepository'; */
 @injectable()
 class ShowPhysicianByNameService {
   constructor(

@@ -1,6 +1,6 @@
 export default interface ICreateAppointmentDTO {
-  physician_id: string;
-  patient_id: string;
+  physician: string;
+  patient: string;
   day: string;
   month: string;
   start: string;

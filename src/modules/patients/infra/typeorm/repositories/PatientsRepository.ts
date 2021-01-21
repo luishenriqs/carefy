@@ -37,8 +37,8 @@ class PatientsRepository implements IPatientsRepository {
   /* ************************************************************************ */
 
   /* **************************[FIND BY NAME]******************************** */
-  public async findByName(name: string): Promise<Patient | undefined> {
-    const foundPatient = await this.ormRepository.findOne({
+  public async findByName(name: string): Promise<Patient[] | undefined> {
+    const foundPatient = await this.ormRepository.find({
       where: { name },
     });
   
@@ -47,8 +47,8 @@ class PatientsRepository implements IPatientsRepository {
   /* ************************************************************************ */
 
   /* ***************************[FIND BY ID]********************************* */
-  public async findById(id: string): Promise<Patient | undefined> {
-    const foundPatient = await this.ormRepository.findOne({
+  public async findById(id: string): Promise<Patient[] | undefined> {
+    const foundPatient = await this.ormRepository.find({
       where: { id },
     });
   
@@ -57,7 +57,7 @@ class PatientsRepository implements IPatientsRepository {
   /* ************************************************************************ */
 
   /* ****************************[FIND ALL]********************************** */
-  public async findAll(): Promise<Patient | undefined> {
+  public async findAll(): Promise<Patient[] | undefined> {
     const allPatients = await this.ormRepository.find();
 
     return allPatients;

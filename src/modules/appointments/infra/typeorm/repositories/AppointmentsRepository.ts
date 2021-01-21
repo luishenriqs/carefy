@@ -12,16 +12,16 @@ class AppointmentsRepository implements IAppointmentsRepository {
 
   /* *****************************[CREATE]*********************************** */
   public async create({
-    physician_id,
-    patient_id,
+    physician,
+    patient,
     day,
     month,
     start,
     end,
   }: ICreateAppointmentDTO): Promise<Appointment> {
     const appointment = await this.ormRepository.create({
-      physician_id,
-      patient_id,
+      physician,
+      patient,
       day,
       month,
       start,
@@ -39,9 +39,10 @@ class AppointmentsRepository implements IAppointmentsRepository {
   /* ************************************************************************ */
 
   /* ************************[FIND BY PATIENT]***************************** */
-  public async findByPatient_id(patient_id: string): Promise<Appointment[] | undefined> {
+  public async findByPatient(
+    patient: string): Promise<Appointment[] | undefined> {
     const foundAppointment = await this.ormRepository.find({
-      where: { patient_id },
+      where: { patient },
     });
   
     return foundAppointment;
@@ -49,9 +50,10 @@ class AppointmentsRepository implements IAppointmentsRepository {
   /* ********************************************************************** */
 
   /* **********************[FIND BY PHYSICIAN]***************************** */
-  public async findByPhysician_id(physician_id: string): Promise<Appointment[] | undefined> {
+  public async findByPhysician(
+    physician: string): Promise<Appointment[] | undefined> {
     const foundAppointment = await this.ormRepository.find({
-      where: { physician_id },
+      where: { physician },
     });
   
     return foundAppointment;
@@ -59,8 +61,8 @@ class AppointmentsRepository implements IAppointmentsRepository {
   /* ************************************************************************ */
   
   /* ***************************[FIND BY DAY]******************************** */
-  public async findByDay(day: string): Promise<Appointment | undefined> {
-    const foundAppointment = await this.ormRepository.findOne({
+  public async findByDay(day: string): Promise<Appointment[] | undefined> {
+    const foundAppointment = await this.ormRepository.find({
       where: { day },
     });
   

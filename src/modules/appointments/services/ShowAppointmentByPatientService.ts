@@ -15,9 +15,11 @@ class ShowAppointmentByPatientService {
 
   
 
-  public async execute(patient_id: string): Promise<Appointment[]> {
+  public async execute(patient: string): Promise<Appointment[]> {
 
-    const appointments = await this.appointmentsRepository.findByPatient_Id(patient_id);
+    const appointments = await this.appointmentsRepository.findByPatient(
+      patient,
+    );
 
     if (!appointments) {
       throw new AppError('There was an error, please try again.');      

@@ -19,17 +19,17 @@ class ShowAppointmentByPhysicianService {
   public async execute(physician: string): Promise<Appointment[]> {
     const findPhysician = await this.physiciansRepository.findByName(physician);
     if (!findPhysician) {
-      throw new AppError('Physician not founded.');
+      throw new AppError('Physician was not found.');
     }
     
-    const { id } = findPhysician[0];
+    const { name } = findPhysician[0];
     
-    if (!id) {
-      throw new AppError('Physician_id not founded.');    
+    if (!name) {
+      throw new AppError('Physician`s name was not found.');    
     }
 
-    const appointments = await this.appointmentsRepository.findByPhysician_id(
-      id,
+    const appointments = await this.appointmentsRepository.findByPhysician(
+      name,
     );
 
     if (!appointments) {

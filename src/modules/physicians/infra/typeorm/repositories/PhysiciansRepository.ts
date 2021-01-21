@@ -15,7 +15,7 @@ class PhysiciansRepository implements IPhysiciansRepository {
     name,
     medicalSpecialty,
   }: ICreatePhysicianDTO): Promise<Physician> {
-    const physician = this.ormRepository.create({
+    const physician = await this.ormRepository.create({
       name,
       medicalSpecialty,
     });
@@ -51,8 +51,8 @@ class PhysiciansRepository implements IPhysiciansRepository {
   /* ************************************************************************ */
 
   /* ***************************[FIND BY ID]********************************* */
-  public async findById(id: string): Promise<Physician | undefined> {
-    const findPhysician = await this.ormRepository.findOne({
+  public async findById(id: string): Promise<Physician[] | undefined> {
+    const findPhysician = await this.ormRepository.find({
       where: { id },
     });
 

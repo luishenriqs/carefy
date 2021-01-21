@@ -3,9 +3,6 @@ import AppError from '@shared/errors/AppError';
 import Patient from '@modules/patients/infra/typeorm/entities/Patient';
 import IPatientsRepository from '../repositories/IPatientsRepository';
 
-
-/* Esse service é injetável.
-Ele recebe a injeção de dependência do repositório 'PatientsRepository'; */
 @injectable()
 class ShowPatientService {
   constructor(
@@ -13,7 +10,7 @@ class ShowPatientService {
     private patientsRepository: IPatientsRepository,
   ) {}
 
-  public async execute(name: string): Promise<Patient> {
+  public async execute(name: string): Promise<Patient[]> {
 
     const patient = await this.patientsRepository.findByName(name);
 

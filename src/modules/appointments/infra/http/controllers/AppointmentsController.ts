@@ -11,14 +11,12 @@ export default class AppointmentsController {
 
   /*  ***********************[CREATE PATIENT]******************************** */
   public async create(request: Request, response: Response): Promise<Response> {
-    const { physician_id, patient_id, day, month, start, end } = request.body;
+    const { physician, patient, day, month, start, end } = request.body;
 
-    /* O 'container.resolve' injeta uma instância uma classe do service
-    "CreateAppointmentService" dentro da rota;  */
     const createAppointment = container.resolve(CreateAppointmentService);
     const appointment = await createAppointment.execute({
-      physician_id,
-      patient_id,
+      physician,
+      patient,
       day,
       month,
       start,
@@ -51,8 +49,6 @@ export default class AppointmentsController {
   /*  *********************[INDEX APPOINTMENTS]****************************** */
   public async index(request: Request, response: Response): Promise<Response> {
 
-  /* O 'container.resolve' injeta uma instância da classe do service
-  "IndexAppointmentService" dentro da rota;  */
   const indexAppointment = container.resolve(IndexAppointmentService);
   const appointments = await indexAppointment.execute();
   return response.json(appointments);
@@ -70,8 +66,6 @@ export default class AppointmentsController {
     end,
   } = request.body;
 
-  /* O 'container.resolve' injeta uma instância da classe do service
-  "EditAppointmentService" dentro da rota;  */
   const editAppointment = container.resolve(EditAppointmentService);
   const appointment = await editAppointment.execute({
     physician_id,
@@ -89,8 +83,6 @@ export default class AppointmentsController {
   public async delete(request: Request, response: Response): Promise<Response> {
   const { id } = request.body;
 
-  /* O 'container.resolve' injeta uma instância da classe do service
-  "DeleteAppointmentService" dentro da rota;  */
   const deleteAppointment = container.resolve(DeleteAppointmentService);
   await deleteAppointment.execute(id);
   return response.status(200).json();
