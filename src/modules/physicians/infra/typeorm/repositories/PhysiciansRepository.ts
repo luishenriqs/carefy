@@ -35,7 +35,7 @@ class PhysiciansRepository implements IPhysiciansRepository {
     const findPhysician = await this.ormRepository.find({
       where: { name },
     });
-
+    
     return findPhysician;
   }
   /* ************************************************************************ */

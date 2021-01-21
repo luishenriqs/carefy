@@ -12,15 +12,17 @@ class PatientsRepository implements IPatientsRepository {
   
   /* *****************************[CREATE]*********************************** */
   public async create({
-    id,
     name,
+    codeArea1,
     preferredPhone,
+    codeArea2,
     secondaryPhone,
   }: ICreatePatientDTO): Promise<Patient> {
     const patient = this.ormRepository.create({
-      id,
       name,
+      codeArea1,
       preferredPhone,
+      codeArea2,
       secondaryPhone,
     });
     await this.ormRepository.save(patient);
@@ -57,7 +59,6 @@ class PatientsRepository implements IPatientsRepository {
   /* ****************************[FIND ALL]********************************** */
   public async findAll(): Promise<Patient | undefined> {
     const allPatients = await this.ormRepository.find();
-  
 
     return allPatients;
 

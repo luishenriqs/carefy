@@ -14,9 +14,9 @@ class ShowPhysicianByNameService {
   ) {}
 
   public async execute(name: string): Promise<Physician[]> {
-
+   
     const physician = await this.physiciansRepository.findByName(name);
-
+    
     if (!physician) {
       throw new AppError('There was an error, please try again.');      
     }

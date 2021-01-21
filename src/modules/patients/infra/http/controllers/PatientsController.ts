@@ -11,14 +11,22 @@ export default class PatientsController {
 
   /* ************************[CREATE PATIENT]******************************** */
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, preferredPhone, secondaryPhone } = request.body;
+    const {
+      name,
+      codeArea1,
+      preferredPhone,
+      codeArea2,
+      secondaryPhone
+    } = request.body;
 
     /* O 'container.resolve' injeta uma instância da classe do service
     "CreatePatientService" dentro da rota;  */
     const createPatient = container.resolve(CreatePatientService);
     const patient = await createPatient.execute({
       name,
+      codeArea1,
       preferredPhone,
+      codeArea2,
       secondaryPhone,
     });
     return response.json(patient);

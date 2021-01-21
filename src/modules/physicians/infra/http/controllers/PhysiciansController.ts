@@ -39,6 +39,7 @@ export default class PhysiciansController {
   /* *********************[SHOW PHYSICIAN BY NAME]*************************** */
   public async showByName(request: Request, response: Response): Promise<Response> {
     const { name } = request.query;
+
     const showPhysician = container.resolve(ShowPhysicianByNameService);
     const physician = await showPhysician.execute(name);
     
@@ -84,7 +85,7 @@ export default class PhysiciansController {
   }
   /* ************************************************************************ */
 
-  /* *************************[LIST PHYSICIAN]******************************* */
+  /* ******************[LIST PHYSICIAN APPOINTMENTS]************************* */
   public async list(request: Request, response: Response): Promise<Response> {
     const { name } = request.body;
 
