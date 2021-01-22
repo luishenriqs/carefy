@@ -4,32 +4,33 @@ import Appointment from '@modules/appointments/infra/typeorm/entities/Appointmen
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
 interface IRequest {
-    physician_id: string;
-    patient_id: string;
+    id: string;
+    physician: string;
+    patient: string;
     day: string;
     month: string;
     start: string;
     end: string;
 }
-/* Esse service é injetável.
-Ele recebe a injeção de dependência do repositório 'AppointmentRepository'; */
+
 @injectable()
-class EditByPatientIdService {
+class EditByIdService {
   constructor(
     @inject('AppointmentsRepository')
     private appointmentRepository: IAppointmentsRepository,
   ) {}
 
   public async execute({ 
-    physician_id,
-    patient_id,
+    id,
+    physician,
+    patient,
     day,
     month,
     start,
     end,
     }: IRequest): Promise<Appointment> {
-    const apointment = await this.appointmentRepository.findByPatient_Id(
-        patient_id
+    const apointment = await this.appointmentRepository.findById(
+        id,
     );
 
 
@@ -37,17 +38,17 @@ class EditByPatientIdService {
         throw new AppError('Appointment not found!');
     }
 
-    apointment.physician_id = physician_id;
-    apointment.patient_id = patient_id;
-    apointment.day = day;
-    apointment.month = month;
-    apointment.start = start;
-    apointment.end = end;
+    apointment[0].physician = physician;
+    apointment[0].patient = patient;
+    apointment[0].day = day;
+    apointment[0].month = month;
+    apointment[0].start = start;
+    apointment[0].end = end;
 
-    await this.appointmentRepository.save(apointment);
+    await this.appointmentRepository.save(apointment[0]);
 
-    return apointment;
+    return apointment[0];
   }
 }
 
-export default EditByPatientIdService;
+export default EditByIdService;

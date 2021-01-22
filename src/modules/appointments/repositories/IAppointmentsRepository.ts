@@ -6,7 +6,7 @@ export default interface IAppointmentsRepository {
   save(appointment: Appointment): Promise<Appointment | undefined>;
   findByPatient(patient: string): Promise<Appointment[] | undefined>;
   findByPhysician(physician: string): Promise<Appointment[] | undefined>;
-  findByDay(day: string): Promise<Appointment[] | undefined>;
+  findById(id: string): Promise<Appointment[] | undefined>;
   findAll(): Promise<Appointment[] | undefined>;
   delete(id: string): Promise<void>;
 }

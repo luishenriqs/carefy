@@ -52,13 +52,22 @@ export default class PatientsController {
 
   /*  ************************[EDIT PATIENT]******************************** */
   public async edit(request: Request, response: Response): Promise<Response> {
-    const { id, name, preferredPhone, secondaryPhone } = request.body;
+    const {
+      oldName,
+      name,
+      codeArea1,
+      preferredPhone,
+      codeArea2,
+      secondaryPhone
+    } = request.body;
 
     const editPatient = container.resolve(EditPatientService);
     const patient = await editPatient.execute({
-      id,
+      oldName,
       name,
+      codeArea1,
       preferredPhone,
+      codeArea2,
       secondaryPhone,
     });
     return response.json(patient);

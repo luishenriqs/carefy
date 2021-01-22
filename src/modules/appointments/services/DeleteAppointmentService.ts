@@ -3,8 +3,6 @@ import AppError from '@shared/errors/AppError';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
 
-/* Esse service é injetável.
-Ele recebe a injeção de dependência do repositório 'AppointmentsRepository'; */
 @injectable()
 class DeleteAppointmentService {
   constructor(

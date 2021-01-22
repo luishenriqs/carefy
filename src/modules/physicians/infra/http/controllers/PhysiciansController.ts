@@ -54,11 +54,11 @@ export default class PhysiciansController {
 
   /* ************************[EDIT PHYSICIAN]******************************** */
   public async edit(request: Request, response: Response): Promise<Response> {
-    const { id, name, medicalSpecialty } = request.body;
+    const { oldName, name, medicalSpecialty } = request.body;
 
     const editPhysician = container.resolve(EditPhysicianService);
     const physician = await editPhysician.execute({
-      id,
+      oldName,
       name,
       medicalSpecialty,
     });

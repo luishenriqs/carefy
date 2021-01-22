@@ -3,8 +3,9 @@ import { container } from 'tsyringe';
 import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService';
 import ShowAppointmentByPhysicianService from '@modules/appointments/services/ShowAppointmentByPhysicianService';
 import ShowAppointmentByPatientService from '@modules/appointments/services/ShowAppointmentByPatientService';
+import ShowAppointmentByIdService from '@modules/appointments/services/ShowAppointmentByIdService';
 import IndexAppointmentService from '@modules/appointments/services/IndexAppointmentService';
-import EditAppointmentService from '@modules/appointments/services/EditByPatientIdService';
+import EditAppointmentService from '@modules/appointments/services/EditByIdService';
 import DeleteAppointmentService from '@modules/appointments/services/DeleteAppointmentService';
 
 export default class AppointmentsController {
@@ -46,6 +47,16 @@ export default class AppointmentsController {
   }
   /* ************************************************************************ */
 
+  /*  ********************[SHOW APPOINTMENTS BY ID]************************** */
+  public async showById(request: Request, response: Response): Promise<Response> {
+    const { id } = request.query;
+
+    const showAppointments = container.resolve(ShowAppointmentByIdService);
+    const appointments = await showAppointments.execute(id);
+    return response.json(appointments);
+  }
+  /* ************************************************************************ */
+
   /*  *********************[INDEX APPOINTMENTS]****************************** */
   public async index(request: Request, response: Response): Promise<Response> {
 
@@ -57,9 +68,10 @@ export default class AppointmentsController {
 
   /* **********************[EDIT APPOINTMENTS]******************************* */
   public async edit(request: Request, response: Response): Promise<Response> {
-  const {     
-    physician_id,
-    patient_id,
+  const {    
+    id, 
+    physician,
+    patient,
     day,
     month,
     start,
@@ -68,8 +80,9 @@ export default class AppointmentsController {
 
   const editAppointment = container.resolve(EditAppointmentService);
   const appointment = await editAppointment.execute({
-    physician_id,
-    patient_id,
+    id,
+    physician,
+    patient,
     day,
     month,
     start,
@@ -81,7 +94,7 @@ export default class AppointmentsController {
 
   /* **********************[DELETE APPOINTMENTS]***************************** */
   public async delete(request: Request, response: Response): Promise<Response> {
-  const { id } = request.body;
+  const { id } = request.query;
 
   const deleteAppointment = container.resolve(DeleteAppointmentService);
   await deleteAppointment.execute(id);

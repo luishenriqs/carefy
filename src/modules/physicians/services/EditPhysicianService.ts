@@ -4,7 +4,7 @@ import Physician from '@modules/physicians/infra/typeorm/entities/Physician';
 import IPhysiciansRepository from '../repositories/IPhysiciansRepository';
 
 interface IRequest {
-  id: string;
+  oldName: string;
   name: string;
   medicalSpecialty: string;
 }
@@ -17,11 +17,11 @@ class EditPhysicianService {
   ) {}
 
   public async execute({ 
-      id,
+      oldName,
       name,
       medicalSpecialty,
     }: IRequest): Promise<Physician> {
-    const physician = await this.physiciansRepository.findById(id);
+    const physician = await this.physiciansRepository.findByName(oldName);
 
 
     if (!physician) {

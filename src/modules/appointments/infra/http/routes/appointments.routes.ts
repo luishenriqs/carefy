@@ -8,6 +8,7 @@ appointmentsRouter.post('/', appointmentsController.create);
 
 appointmentsRouter.get('/showbyphysician', appointmentsController.showByPhysician);
 appointmentsRouter.get('/showbypatient', appointmentsController.showByPatient);
+appointmentsRouter.get('/showbyid', appointmentsController.showById);
 
 appointmentsRouter.get('/index', appointmentsController.index);
 appointmentsRouter.patch('/edit', appointmentsController.edit);
