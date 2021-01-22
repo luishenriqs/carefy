@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import 'reflect-metadata';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
@@ -24,6 +25,8 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     message: 'Internal server error',
   });
 });
+
+dotenv.config();
 
 app.get('/', (request, response) => {
   response.json({ message: 'HELLO WORLD' });
