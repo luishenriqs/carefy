@@ -2,9 +2,6 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import IPhysiciansRepository from '../repositories/IPhysiciansRepository';
 
-
-/* Esse service é injetável.
-Ele recebe a injeção de dependência do repositório 'PhysiciansRepository'; */
 @injectable()
 class DeletePhysicianService {
   constructor(

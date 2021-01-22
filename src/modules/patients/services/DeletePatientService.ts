@@ -2,9 +2,6 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import IPatientsRepository from '../repositories/IPatientsRepository';
 
-
-/* Esse service é injetável.
-Ele recebe a injeção de dependência do repositório 'PatientsRepository'; */
 @injectable()
 class DeletePatientService {
   constructor(
@@ -17,7 +14,6 @@ class DeletePatientService {
       throw new AppError('Patient not found');
     }
     await this.patientsRepository.delete(id);
-    return;
   }
 }
 

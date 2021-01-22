@@ -68,7 +68,7 @@ export default class PhysiciansController {
 
   /* ************************[DELETE PHYSICIAN]****************************** */
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.body;
+    const { id } = request.query;
 
     const deletePhysician = container.resolve(DeletePhysicianService);
     await deletePhysician.execute(id);
@@ -76,9 +76,9 @@ export default class PhysiciansController {
   }
   /* ************************************************************************ */
 
-  /* ******************[LIST PHYSICIAN APPOINTMENTS]************************* */
+  /* ****************[LIST APPOINTMENTS BY PHYSICIAN]************************ */
   public async list(request: Request, response: Response): Promise<Response> {
-    const { name } = request.body;
+    const { name } = request.query;
 
     const listAppointment = container.resolve(ListAppointmensByPhysicianService);
     const appointment = await listAppointment.execute(name);

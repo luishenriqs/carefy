@@ -8,9 +8,6 @@ import IAppointmentsRepository from '@modules/appointments/repositories/IAppoint
 @injectable()
 class ListAppointmensByPatientService {
   constructor(
-    @inject('PatientsRepository')
-    private patientsRepository: IPatientsRepository,
-
     @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
   ) {}
@@ -18,15 +15,8 @@ class ListAppointmensByPatientService {
 
   public async execute(name: string): Promise<Appointment[]> {
 
-    // Aqui eu acho o paciente por nome.
-    const patient = await this.patientsRepository.findByName(name);
-    if (!patient) {
-      throw new AppError('There was an error, please try again.');      
-    }
-
-    // Aqui eu acho os agendamentos pelo id do médico.
-    const appointment = await this.appointmentsRepository.findByPatient_Id(
-      patient.id,
+    const appointment = await this.appointmentsRepository.findByPatient(
+      name,
     );
     if (!appointment) {
       throw new AppError('There was an error, please try again.');      

@@ -70,7 +70,7 @@ class PhysiciansRepository implements IPhysiciansRepository {
 
   /* *****************************[DELETE]*********************************** */
   public async delete(id: string): Promise<void> {
-    const removedPhysician = await this.ormRepository.findOne({
+    const removedPhysician = await this.ormRepository.find({
       where: { id },
     });
     await this.ormRepository.remove(removedPhysician);

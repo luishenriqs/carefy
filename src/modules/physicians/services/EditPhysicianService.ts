@@ -8,8 +8,7 @@ interface IRequest {
   name: string;
   medicalSpecialty: string;
 }
-/* Esse service é injetável.
-Ele recebe a injeção de dependência do repositório 'PhysiciansRepository'; */
+
 @injectable()
 class EditPhysicianService {
   constructor(
@@ -29,12 +28,12 @@ class EditPhysicianService {
         throw new AppError('Physician not found!');
     }
 
-    physician.name = name;
-    physician.medicalSpecialty = medicalSpecialty;
+    physician[0].name = name;
+    physician[0].medicalSpecialty = medicalSpecialty;
 
-    await this.physiciansRepository.save(physician);
+    await this.physiciansRepository.save(physician[0]);
 
-    return physician;
+    return physician[0];
   }
 }
 
