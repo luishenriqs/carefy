@@ -1,5 +1,3 @@
-import Physician from '@modules/physicians/infra/typeorm/entities/Physician';
-import Patient from '@modules/patients/infra/typeorm/entities/Patient';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,6 +7,8 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import Physician from '@modules/physicians/infra/typeorm/entities/Physician';
+import Patient from '@modules/patients/infra/typeorm/entities/Patient';
 
 @Entity('appointments')
 class Appointment {
